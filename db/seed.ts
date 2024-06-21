@@ -3,7 +3,7 @@ import prisma from "./prisma";
   
 import { readFileSync } from "fs";
 
-const str = readFileSync("D:\\Programacion\\plant_location\\db\\data.dat", "utf-8");
+const str = readFileSync("./db/data.dat", "utf-8");
 
 function encodeDat(clients: Client[], locations: LocationA[], locationClients: LocationClient[]): string {
 	const cost: number[][] = [];
@@ -53,7 +53,6 @@ async function main(){
 	await prisma.client.deleteMany();
 	await prisma.location.deleteMany();
 	await prisma.locationClient.deleteMany();
-
 
 	const clientPromises = [];
 	for(let i = 0; i < clientsN; i++){
