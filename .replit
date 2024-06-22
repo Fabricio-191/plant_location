@@ -19,3 +19,6 @@ ignorePorts = false
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[env]
+PRISMA_CLI_QUERY_ENGINE_TYPE = "binary"

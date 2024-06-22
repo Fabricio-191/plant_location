@@ -13,17 +13,17 @@ import {
 import { useEffect, useState } from "react";
 import { LocationClient } from "@prisma/client";
 
-type PageProps = { params: {  clientId: string; } };
+type PageProps = { params: { clientId: string } };
 
 export default function Page({ params }: PageProps) {
-	const [locationClients, setClients] = useState<LocationClient[]>([]);
+  const [locationClients, setClients] = useState<LocationClient[]>([]);
 
-	useEffect(() => {
-		fetch("/api/location/" + params.clientId, { method: "GET" })
-			.then(res => res.json())
-			.then(data => setClients(data.clientLocations))
-			.catch(console.error);
-  	}, [params.clientId]);
+  useEffect(() => {
+    fetch("/api/location/" + params.clientId, { method: "GET" })
+      .then((res) => res.json())
+      .then((data) => setClients(data.clientLocations))
+      .catch(console.error);
+  }, [params.clientId]);
 
   return (
     <MaxWidthWrapper>
@@ -42,18 +42,17 @@ export default function Page({ params }: PageProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {locationClients.map(locationClient => 
-				<TableRow key={locationClient.id}>
-                    <TableCell>{locationClient.locationId}</TableCell>
-					<TableCell>{locationClient.cost}</TableCell>
-					<EditLocationClient 
-						id={locationClient.locationId}
-						name={locationClient.locationId.toString()}
-						cost={locationClient.cost}
-					>
-					</EditLocationClient>
-                </TableRow>
-            )}
+            {locationClients.map((locationClient) => (
+              <TableRow key={locationClient.id}>
+                <TableCell>{locationClient.locationId}</TableCell>
+                <TableCell>{locationClient.cost}</TableCell>
+                <EditLocationClient
+                  id={locationClient.locationId}
+                  name={locationClient.locationId.toString()}
+                  cost={locationClient.cost}
+                ></EditLocationClient>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>

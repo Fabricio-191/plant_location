@@ -15,65 +15,53 @@ import AddClient from "@/components/AddClient";
 import AddLocation from "@/components/AddLocation";
 import Resolve from "@/components/Resolve";
 import { useEffect, useState } from "react";
+import { Client, Location, LocationClient, Result } from "@prisma/client";
 
 function deleteResult(id: string, setResults: any) {
-	return async () => {
-		const response = await fetch("/api/results/" + id, {
-			method: "DELETE",
-		});
+  return async () => {
+    const response = await fetch("/api/results/" + id, {
+      method: "DELETE",
+    });
 
-		if (response.ok) {
-			const newResults = await fetch("/api/results")
-				.then(res => res.json())
-				.then(data => data.results)
-				.catch(console.error);
-			setResults(newResults);
-		}
-	};
+    if (response.ok) {
+      const newResults = await fetch("/api/results")
+        .then((res) => res.json())
+        .then((data) => data.results)
+        .catch(console.error);
+      setResults(newResults);
+    }
+  };
 }
 
 export default function Home() {
-  const [locations, setLocations] = useState<LocationA[]>([]);
+  const [locations, setLocations] = useState<Location[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
   const [results, setResults] = useState<Result[]>([]);
 
-	useEffect(() => {
-		fetch("/api/location")
-			.then(res => res.json())
-			.then(data => setLocations(data.locations))
-			.catch(console.error);
-  	}, []);
-	
-	useEffect(() => {
-		fetch("/api/client")
-			.then(res => res.json())
-			.then(data => setClients(data.clients))
-			.catch(console.error);
-  	}, []);
+  useEffect(() => {
+    fetch("/api/location")
+      .then((res) => res.json())
+      .then((data) => setLocations(data.locations))
+      .catch(console.error);
+  }, []);
 
-	useEffect(() => {
-		fetch("/api/results")
-			.then(res => res.json())
-			.then(data => setResults(data.results))
-			.catch(console.error);
-  	}, []);
+  useEffect(() => {
+    fetch("/api/client")
+      .then((res) => res.json())
+      .then((data) => setClients(data.clients))
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/results")
+      .then((res) => res.json())
+      .then((data) => setResults(data.results))
+      .catch(console.error);
+  }, []);
 
   return (
     <MaxWidthWrapper className="">
       <div className="flex flex-col items-center justify-center w-full h-full p-4 space-y-4">
-        {/* <p className="text-lg my-4">
-          Una empresa constructora de barcos tiene cierto número de clientes.
-          Cada cliente es abastecido por exactamente una planta. A su vez, una
-          planta puede abastecer a varios clientes. El problemaconsiste en
-          decidir dónde establecer las plantas para abastecer a cada cliente
-          minimizando el costo de construir cada planta y el costo de transporte
-          para abastecer a los clientes. Para cada posible ubicación de la
-          planta hay un costo fijo y una capacidad de producción. Ambos tienen
-          en cuenta el país y las condiciones geográficas. Para cada cliente,
-          hay una demanda y un costo de transporte con respecto a cada ubicación
-          de la planta.
-        </p> */}
-
         <Tabs defaultValue="locations" className="w-full">
           <TabsList className="flex items-center">
             <TabsTrigger value="locations" className="w-1/2">
@@ -150,9 +138,13 @@ export default function Home() {
                 {results.map((result) => (
                   <TableRow key={result.id}>
                     <TableCell>{result.name}</TableCell>
-                    <TableCell>{JSON.parse(result.solutionData).solutionValues[0].obj}</TableCell>
+                    <TableCell>
+                      {JSON.parse(result.solutionData).solutionValues[0].obj}
+                    </TableCell>
                     <TableCell>{result.statusSolution}</TableCell>
-                    <TableCell>{new Date(result.createdAt).toLocaleString()}</TableCell>
+                    <TableCell>
+                      {new Date(result.createdAt).toLocaleString()}
+                    </TableCell>
                     <TableCell>
                       <Link
                         key={result.id}
@@ -163,10 +155,10 @@ export default function Home() {
                       </Link>
                     </TableCell>
                     <TableCell>
-						<Button onClick={deleteResult(result.id, setResults)}>
-						Delete
-						</Button>
-					</TableCell>
+                      <Button onClick={deleteResult(result.id, setResults)}>
+                        Delete
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

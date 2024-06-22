@@ -54,11 +54,11 @@ const Resolve = () => {
               {...register("name", { required: true })}
             />
             <DialogFooter>
-				<DialogClose>
-					<Button type="submit" className="m-2">
-						Resolver
-					</Button>
-				</DialogClose>
+      				<DialogClose>
+      					<Button type="submit" className="m-2">
+      						Resolver
+      					</Button>
+      				</DialogClose>
             </DialogFooter>
           </form>
         </div>

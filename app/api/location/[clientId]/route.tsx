@@ -12,12 +12,12 @@ export async function GET(request: Request, { params }: { params: { clientId: st
 	}
 }
 
-export async function PUT(request: Request, { params }: { params: { clientId: string } }) {
+export async function PUT(request: Request, page: { params: { clientId: string } }) {
   try {
-    const {  } = await request.json();
+    const data = await request.json();
     const client = await prisma.locationClient.update({
-      where: { id: params.clientId },
-      data: {  },
+      where: { id: Number(page.params.clientId) },
+      data,
     });
     return NextResponse.json({ client });
   } catch (error) {
