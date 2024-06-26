@@ -3,6 +3,7 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -29,6 +30,34 @@ function deleteResult(id: string, setResults: any) {
         .then((data) => data.results)
         .catch(console.error);
       setResults(newResults);
+    }
+  };
+}
+
+function deleteLocation(id: number, setLocations: any) {
+  return async () => {
+    const response = await fetch("/api/location/" + id, { method: "DELETE" });
+
+    if (response.ok) {
+      const newLocations = await fetch("/api/location")
+        .then((res) => res.json())
+        .then((data) => data.locations)
+        .catch(console.error);
+      setLocations(newLocations);
+    }
+  };
+}
+
+function deleteClient(id: string, setClients: any) {
+  return async () => {
+    const response = await fetch("/api/client/" + id, { method: "DELETE" });
+
+    if (response.ok) {
+      const newClients = await fetch("/api/client")
+        .then((res) => res.json())
+        .then((data) => data.clients)
+        .catch(console.error);
+      setClients(newClients);
     }
   };
 }
@@ -89,7 +118,14 @@ export default function Home() {
                     <TableCell>{location.id}</TableCell>
                     <TableCell>{location.fixedCost}</TableCell>
                     <TableCell>{location.capacity}</TableCell>
-                    <TableCell>Delete</TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={deleteLocation(location.id, setLocations)}
+                        variant="destructive"
+                      >
+                        <Trash2 />
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -116,7 +152,14 @@ export default function Home() {
                         <Link href={`/location/${client.id}`}>Administrar</Link>
                       </Button>
                     </TableCell>
-                    <TableCell>Delete</TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={deleteClient(client.id, setClients)}
+                        variant="destructive"
+                      >
+                        <Trash2 />
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -155,8 +198,11 @@ export default function Home() {
                       </Link>
                     </TableCell>
                     <TableCell>
-                      <Button onClick={deleteResult(result.id, setResults)}>
-                        Delete
+                      <Button
+                        onClick={deleteResult(result.id, setResults)}
+                        variant="destructive"
+                      >
+                        <Trash2 />
                       </Button>
                     </TableCell>
                   </TableRow>

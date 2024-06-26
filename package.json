@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-	"db:migrate": "npx prisma migrate dev",
-	"db:seed": "npx prisma db seed",
+    "db:migrate": "npx prisma migrate dev",
+    "db:seed": "npx prisma db seed",
     "db:studio": "prisma studio"
   },
   "dependencies": {

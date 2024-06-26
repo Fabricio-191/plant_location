@@ -17,7 +17,7 @@ export async function PUT(
 	}
 }
 
-export async function DELETE(page: { params: { clientId: string } }) {
+export async function DELETE(request: Request, page: { params: { clientId: string } }) {
 	try {
 		const client = await prisma.client.delete({
 			where: { id: Number(page.params.clientId) },
