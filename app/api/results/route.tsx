@@ -116,7 +116,7 @@ class WatsonMachineLearning {
 		const body = {
 			space_id: this.space_id,
 			name: `deploy-job-${new Date().toLocaleString()}`,
-			hardware_spec: { name: "S" },
+			// hardware_spec: { name: "S" },
 			batch: {},
 			deployment: { id: this.deploy_id },
 			decision_optimization: {

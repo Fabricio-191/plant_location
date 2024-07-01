@@ -20,8 +20,5 @@ ignorePorts = false
 localPort = 3000
 externalPort = 80
 
-[[ports]]
-localPort = 43259
-
 [env]
 PRISMA_CLI_QUERY_ENGINE_TYPE = "binary"

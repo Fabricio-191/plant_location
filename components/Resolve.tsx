@@ -19,6 +19,7 @@ const Resolve = () => {
     register,
     handleSubmit,
     setValue,
+    setResults,
     formState: { errors },
   } = useForm();
 
@@ -30,6 +31,11 @@ const Resolve = () => {
 				"Content-Type": "application/json",
 			},
 		});
+
+    fetch("/api/results")
+      .then((res) => res.json())
+      .then((data) => setResults(data.results))
+      .catch(console.error);
   };
 
   return (

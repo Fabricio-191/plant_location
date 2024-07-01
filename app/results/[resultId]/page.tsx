@@ -175,11 +175,11 @@ export default function Page(pageProp: { params: { resultId: number } }) {
 						</TabsContent>
 
 						<TabsContent value="inputs">
-							<h3 className="text-xl font-bold font-sans text-slate-500">
-								Datos de entrada
-							</h3>
-							<div className="">
-								<p>{JSON.stringify(inputData)}</p>
+							<div className="flex flex-col justify-center items-center">
+								<h3 className="mb-3 text-xl text-center font-bold font-sans text-slate-500">
+									Datos de entrada
+								</h3>
+								<p className="w-3/4 mx-10 px-5 overflow-scroll">{JSON.stringify(inputData)}</p>
 							</div>
 						</TabsContent>
 

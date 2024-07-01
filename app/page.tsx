@@ -168,7 +168,7 @@ export default function Home() {
             <AddClient />
           </TabsContent>
           <TabsContent value="results">
-            <Resolve />
+            <Resolve setResults={setResults} />
             <Table>
               <TableHeader>
                 <TableRow>

@@ -53,13 +53,14 @@ const AddLocation = () => {
               id="fixedCost"
               type="number"
               placeholder="Ingrese el costo fijo..."
-              className="mb-2"
+              className="mb-2 py-2"
               {...register("cost", { required: true })}
             />
             <Input
               id="capacity"
               type="number"
               placeholder="Ingrese la capacidad..."
+              className="mb-2 py-2"
               {...register("capacity", { required: true })}
             />
             <DialogClose>
